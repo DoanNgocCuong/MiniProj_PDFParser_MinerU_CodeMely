@@ -1,50 +1,40 @@
-# Use the official Ubuntu base image
-FROM ubuntu:22.04
+FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
 
-# Set environment variables to non-interactive to avoid prompts during installation
-ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y \
+    python3.10 \
+    python3-pip \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Update the package list and install necessary packages
-RUN apt-get update && \
-    apt-get install -y \
-        software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y \
-        python3.10 \
-        python3.10-venv \
-        python3.10-distutils \
-        python3-pip \
-        wget \
-        git \
-        libgl1 \
-        libglib2.0-0 \
-        && rm -rf /var/lib/apt/lists/*
+RUN pip3 install --no-cache-dir --upgrade pip
 
-# Set Python 3.10 as the default python3
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+WORKDIR /app
 
-# Create a virtual environment for MinerU
-RUN python3 -m venv /opt/mineru_venv
+COPY requirements_fullCodeMely.txt .
 
-# Activate the virtual environment and install necessary Python packages
-RUN /bin/bash -c "source /opt/mineru_venv/bin/activate && \
-    pip3 install --upgrade pip && \
-    wget https://gitee.com/myhloli/MinerU/raw/master/requirements-docker.txt && \
-    pip3 install -r requirements-docker.txt --extra-index-url https://wheels.myhloli.com -i https://pypi.tuna.tsinghua.edu.cn/simple && \
-    pip3 install paddlepaddle-gpu==3.0.0b1 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/"
+# Lọc ra các package không tương thích với Linux
+RUN grep -v pywin32 requirements_fullCodeMely.txt > requirements_linux.txt
 
-# Copy the configuration file template and install magic-pdf latest
-RUN /bin/bash -c "wget https://gitee.com/myhloli/MinerU/raw/master/magic-pdf.template.json && \
-    cp magic-pdf.template.json /root/magic-pdf.json && \
-    source /opt/mineru_venv/bin/activate && \
-    pip3 install -U magic-pdf"
+# Cài đặt các package đã được lọc
+RUN pip3 install --no-cache-dir -r requirements_linux.txt
 
-# Download models and update the configuration file
-RUN /bin/bash -c "pip3 install modelscope && \
-    wget https://gitee.com/myhloli/MinerU/raw/master/docs/download_models.py && \
-    python3 download_models.py && \
-    sed -i 's|cpu|cuda|g' /root/magic-pdf.json"
+RUN pip3 install detectron2 --extra-index-url https://myhloli.github.io/wheels/
+RUN pip3 install magic-pdf[full] --extra-index-url https://myhloli.github.io/wheels/
 
-# Set the entry point to activate the virtual environment and run the command line tool
-ENTRYPOINT ["/bin/bash", "-c", "source /opt/mineru_venv/bin/activate && exec \"$@\"", "--"]
+# Copy mã nguồn custom PaddleOCR
+COPY custom_paddleocr /app/custom_paddleocr
+
+# Cài đặt custom PaddleOCR
+RUN pip3 install -e /app/custom_paddleocr
+
+COPY . .
+
+ENV CUDA_VISIBLE_DEVICES=0
+ENV PDF_PATH="/app/PDFTesting/testpdf2.pdf"
+ENV OUTPUT_DIR="/app/output_directory"
+ENV METHOD="ocr"
+
+ENTRYPOINT ["magic-pdf", "--path", "$PDF_PATH", "--output-dir", "$OUTPUT_DIR", "--method", "$METHOD"]
