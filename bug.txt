@@ -1,0 +1,166 @@
+2024-10-20 22:38:46.341 | ERROR    | magic_pdf.tools.cli:parse_doc:96 - 'tuple' object has no attribute 'shape'
+Traceback (most recent call last):
+
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+           │         │     └ {'__name__': '__main__', '__doc__': None, '__package__': '', '__loader__': <zipimporter object "D:\OneDrive - Hanoi Universit...
+           │         └ <code object <module> at 0x000001F1661CE8C0, file "D:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\...
+           └ <function _run_code at 0x000001F1661A2290>
+
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+         │     └ {'__name__': '__main__', '__doc__': None, '__package__': '', '__loader__': <zipimporter object "D:\OneDrive - Hanoi Universit...
+         └ <code object <module> at 0x000001F1661CE8C0, file "D:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\...
+
+  File "D:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\Scripts\magic-pdf.exe\__main__.py", line 7, in <module>
+    sys.exit(cli())
+    │   │    └ <Command cli>
+    │   └ <built-in function exit>
+    └ <module 'sys' (built-in)>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\click\core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           │    │     │       └ {}
+           │    │     └ ()
+           │    └ <function BaseCommand.main at 0x000001F1666A3AC0>
+           └ <Command cli>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\click\core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         │    │      └ <click.core.Context object at 0x000001F1661D0760>
+         │    └ <function Command.invoke at 0x000001F1666BC5E0>
+         └ <Command cli>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\click\core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           │   │      │    │           │   └ {'path': 'PDFTesting/testpdf2.pdf', 'output_dir': 'some_output_dir', 'method': 'ocr', 'debug_able': False, 'start_page_id': 0...
+           │   │      │    │           └ <click.core.Context object at 0x000001F1661D0760>      
+           │   │      │    └ <function cli at 0x000001F12D783250>
+           │   │      └ <Command cli>
+           │   └ <function Context.invoke at 0x000001F1666A32E0>
+           └ <click.core.Context object at 0x000001F1661D0760>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\click\core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+                       │       └ {'path': 'PDFTesting/testpdf2.pdf', 'output_dir': 'some_output_dir', 'method': 'ocr', 'debug_able': False, 'start_page_id': 0...
+                       └ ()
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\magic_pdf\tools\cli.py", line 102, in cli
+    parse_doc(path)
+    │         └ 'PDFTesting/testpdf2.pdf'
+    └ <function cli.<locals>.parse_doc at 0x000001F1661A2D40>
+
+> File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\magic_pdf\tools\cli.py", line 84, in parse_doc
+    do_parse(
+    └ <function do_parse at 0x000001F1694F0F70>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\magic_pdf\tools\common.py", line 79, in do_parse
+    pipe.pipe_analyze()
+    │    └ <function OCRPipe.pipe_analyze at 0x000001F12D7824D0>
+    └ <magic_pdf.pipe.OCRPipe.OCRPipe object at 0x000001F12D771A20>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\magic_pdf\pipe\OCRPipe.py", line 20, in pipe_analyze
+    self.model_list = doc_analyze(self.pdf_bytes, ocr=True,
+    │    │            │           │    └ b'%PDF-1.4\r\n%\xe2\xe3\xcf\xd3\r\n1 0 obj\r\n<<\r\n/Type /Page\r\n/MediaBox [ 0 0 779.76 540 ]\r\n/Rotate 360\r\n/Resources ...
+    │    │            │           └ <magic_pdf.pipe.OCRPipe.OCRPipe object at 0x000001F12D771A20>
+    │    │            └ <function doc_analyze at 0x000001F17FA65BD0>
+    │    └ []
+    └ <magic_pdf.pipe.OCRPipe.OCRPipe object at 0x000001F12D771A20>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\magic_pdf\model\doc_analyze_by_custom_model.py", line 129, in doc_analyze
+    result = custom_model(img)
+             │            └ array([[[ 20,  41, 160],
+             │                      [ 20,  41, 160],
+             │                      [ 20,  41, 160],
+             │                      ...,
+             │                      [ 20,  41, 160],
+             │                      [ 20...
+             └ <magic_pdf.model.pdf_extract_kit.CustomPEKModel object at 0x000001F12D771810>    
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\magic_pdf\model\pdf_extract_kit.py", line 350, in __call__
+    ocr_res = self.ocr_model.ocr(new_image, mfd_res=adjusted_mfdetrec_res)[0]
+              │    │         │   │                  └ []
+              │    │         │   └ array([[[255, 255, 255],
+              │    │         │             [255, 255, 255],
+              │    │         │             [255, 255, 255],
+              │    │         │             ...,
+              │    │         │             [255, 255, 255],
+              │    │         │             [255...
+              │    │         └ <function ModifiedPaddleOCR.ocr at 0x000001F1481663B0>
+              │    └ <magic_pdf.model.pek_sub_modules.self_modify.ModifiedPaddleOCR object at 0x000001F1661D0A60>
+              └ <magic_pdf.model.pdf_extract_kit.CustomPEKModel object at 0x000001F12D771810>   
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\magic_pdf\model\pek_sub_modules\self_modify.py", line 290, in ocr
+    dt_boxes, rec_res, _ = self.__call__(img, cls, mfd_res=mfd_res)
+                           │    │        │    │            └ []
+                           │    │        │    └ True
+                           │    │        └ array([[[255, 255, 255],
+                           │    │                  [255, 255, 255],
+                           │    │                  [255, 255, 255],
+                           │    │                  ...,
+                           │    │                  [255, 255, 255],
+                           │    │                  [255...
+                           │    └ <function ModifiedPaddleOCR.__call__ at 0x000001F148166440>   
+                           └ <magic_pdf.model.pek_sub_modules.self_modify.ModifiedPaddleOCR object at 0x000001F1661D0A60>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\magic_pdf\model\pek_sub_modules\self_modify.py", line 373, in __call__
+    rec_res, elapse = self.text_recognizer(img_crop_list)
+                      │    │               └ [(array([[[255, 255, 255],
+                      │    │                         [255, 255, 255],
+                      │    │                         [255, 255, 255],
+                      │    │                         ...,
+                      │    │                         [255, 255, 255],
+                      │    │                         [2...
+                      │    └ <tools.infer.predict_rec.TextRecognizer object at 0x000001F14BD8C430>
+                      └ <magic_pdf.model.pek_sub_modules.self_modify.ModifiedPaddleOCR object at 0x000001F1661D0A60>
+
+  File "d:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely\.venv\lib\site-packages\paddleocr\tools\infer\predict_rec.py", line 398, in __call__
+    width_list.append(img.shape[1] / float(img.shape[0]))
+    │          │      │                    └ (array([[[255, 255, 255],
+    │          │      │                              [255, 255, 255],
+    │          │      │                              [255, 255, 255],
+    │          │      │                              ...,
+    │          │      │                              [255, 255, 255],
+    │          │      │                              [25...
+    │          │      └ (array([[[255, 255, 255],
+    │          │                [255, 255, 255],
+    │          │                [255, 255, 255],
+    │          │                ...,
+    │          │                [255, 255, 255],
+    │          │                [25...
+    │          └ <method 'append' of 'list' objects>
+    └ []
+
+AttributeError: 'tuple' object has no attribute 'shape'
+(.venv) PS D:\OneDrive - Hanoi University of Science and Technology\ITE10-DS&AI-HUST\Learn&Task\MiniProj_PDFParser_MinerU_CodeMely\MiniProj_PDFParser_MinerU_CodeMely>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
